@@ -1,4 +1,4 @@
-#include "TXLib.h"
+#include "C:\Users\Nikita\source\repos\TX\TXLib.h"
 
 #include <iostream> 
 #include <algorithm>
@@ -71,7 +71,7 @@ public:
 		txSetColor(TX_WHITE);
 	}
 
-	virtual int is_button_pressed()  {
+	virtual int is_button_pressed() {
 		double x = txMouseX(), y = txMouseY();
 
 		if (x == rect_.right + 0.5 * (rect_.right - rect_.left) && y == rect_.top + 0.5 * (rect_.bottom - rect_.top)) return 1;
@@ -165,6 +165,11 @@ public:
 	void add(Button* button);
 	void draw(Window& field);
 	void run(Window& field, CoordSys& graph);
+
+	~Manager() {
+		for (size_t button = 0; button < count_; button++)
+			delete buttons_[button];
+	}
 };
 
 void CoordSys::draw_point(double x0, double y0) {
@@ -267,11 +272,11 @@ int main() {
 
 	Manager manager;
 
-	RectButton    rect_button    ("SIN", RECT{ 100, 480, 300, 520 }, sin); manager.add(&rect_button);
-	CircleButton  circle_button  ("COS", RECT{ 175, 540, 225, 590 }, cos); manager.add(&circle_button);
-	EllipseButton ellipse_button ("TAN", RECT{ 500, 480, 700, 520 }, tan); manager.add(&ellipse_button);
-	Button        button         ("EXP", RECT{ 500, 540, 700, 580 }, exp); manager.add(&button);
-	
+	manager.add(new RectButton    ("SIN", RECT{ 100, 480, 300, 520 }, sin));
+	manager.add(new CircleButton  ("COS", RECT{ 175, 540, 225, 590 }, cos));
+	manager.add(new EllipseButton ("TAN", RECT{ 500, 480, 700, 520 }, tan));
+	manager.add(new Button        ("EXP", RECT{ 500, 540, 700, 580 }, exp));
+
 	manager.draw(field);
 
 	manager.run(field, graph);
