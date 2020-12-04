@@ -1,4 +1,4 @@
-#include "C:\Users\Nikita\source\repos\TX\TXLib.h"
+#include "TXLib.h"
 
 #include <iostream> 
 #include <algorithm>
